@@ -1,23 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <div  id="show">
-    <div v-if="show">
-      <div class="card-body">
-        <ul class="list-inline">
-          <li v-for="item in items" :key="item" class="list-inline-item">
+          <ul>
+          <li v-for="item in items" :key="item.id" class="list-inline-item">
+            <btn 
+              :label="item.title"
+              @onCounter = "onCounter"
+              />
             {{item.counter}}
-            <btn :label="item.title" v-on:click="console.log('hehs')" />
           </li>
         </ul>
-      </div>
+        score : {{items[0].counter + (items[1].counter * 10) + (items[2].counter * 5) + (items[3].counter * 20) + (items[4].counter * (-5)) + (items[5].counter * (-50))}}
     </div>
-    <div>
-      <button @mouseover="show=true" @mouseleave="show=false">like</button>
-    </div>
-    </div>
-    
-  </div>
 </template>
 
 <script>
@@ -27,18 +21,40 @@ export default {
   components: {
     btn,
   },
+  methods : {
+    onCounter(value){
+      if (value == 'like') {
+        this.items[0].counter++
+      }
+      else if (value == 'love'){
+        this.items[1].counter++
+      }
+      else if(value == 'haha'){
+        this.items[2].counter++
+      }
+      else if (value == 'wow'){
+        this.items[3].counter++
+      }
+      else if (value == 'sad'){
+        this.items[4].counter++
+      }
+      else if (value == 'angry'){
+        this.items[5].counter++
+      }
+    }
+  },
   data() {
     return {
-      show: false,
       items: [
-        { id: 1, title: "like", counter: 0 },
-        { id: 2, title: "love", counter: 0 },
-        { id: 4, title: "haha", counter: 0 },
-        { id: 5, title: "wow", counter: 0 },
-        { id: 6, title: "angry", counter: 0 },
+        { title: "like", counter:0},
+        { title: "love", counter:0},
+        { title: "haha", counter:0},
+        { title: "wow", counter:0},
+        { title: "sad", counter:0},
+        { title: "angry", counter:0},
       ],
     };
-  },
+  }
 };
 </script>
 
@@ -50,16 +66,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-#show{
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  
-}
-
-#show > * {
-  grid-area:1/1/1/1;
-
 }
 </style>
